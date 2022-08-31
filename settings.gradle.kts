@@ -18,7 +18,7 @@ dependencyResolutionManagement {
 //    }
 }
 
-rootProject.name = "plugins"
+rootProject.name = "plugin-extensions"
 
 include(":core")
 include(":plugin-demo")
