@@ -1,0 +1,47 @@
+[versions]
+detekt = "1.20.0"
+kotlin = "1.6.21"
+ktlintGradle = "10.3.0"
+pluginPublish = "1.0.0"
+versionCheck = "0.42.0"
+boosterVersion = "4.12.0"
+gradlePluginVersion = "7.2.1"
+asmVersion = "9.3"
+autoServiceVersion = "1.0"
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kotlin = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
+pluginPublish = { id = "com.gradle.plugin-publish", version.ref = "pluginPublish" }
+versionCheck = { id = "com.github.ben-manes.versions", version.ref = "versionCheck" }
+# android
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "gradlePluginVersion" }
+androidApplication = { id = "com.android.application", version.ref = "gradlePluginVersion" }
+
+[libraries]
+junit = "junit:junit:4.13.2"
+# booster
+boosterGradlePlugin = { module = "com.didiglobal.booster:booster-gradle-plugin", version.ref = "boosterVersion" }
+boosterApi = { module = "com.didiglobal.booster:booster-api", version.ref = "boosterVersion" }
+boosterAndroidGradleApi = { module = "com.didiglobal.booster:booster-android-gradle-api", version.ref = "boosterVersion" }
+boosterTransformSpi = { module = "com.didiglobal.booster:booster-transform-spi", version.ref = "boosterVersion" }
+boosterTransformUtil = { module = "com.didiglobal.booster:booster-transform-util", version.ref = "boosterVersion" }
+boosterBuild = { module = "com.didiglobal.booster:booster-build", version.ref = "boosterVersion" }
+boosterTaskAnalyser = { module = "com.didiglobal.booster:booster-task-analyser", version.ref = "boosterVersion" }
+boosterTransformAsm = { module = "com.didiglobal.booster:booster-transform-asm", version.ref = "boosterVersion" }
+boosterTransformActivityThread = { module = "com.didiglobal.booster:booster-transform-activity-thread", version.ref = "boosterVersion" }
+# kotlin
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+# android
+androidBuildTools = { module = "com.android.tools.build:gradle", version.ref = "gradlePluginVersion" }
+googleAutoService = { module = "com.google.auto.service:auto-service", version.ref = "autoServiceVersion" }
+# asm
+asm = { module = "org.ow2.asm:asm", version.ref = "asmVersion" }
+asmAnalysis = { module = "org.ow2.asm:asm-analysis", version.ref = "asmVersion" }
+asmCommons = { module = "org.ow2.asm:asm-commons", version.ref = "asmVersion" }
+asmTree = { module = "org.ow2.asm:asm-tree", version.ref = "asmVersion" }
+asmUtil = { module = "org.ow2.asm:asm-util", version.ref = "asmVersion" }
