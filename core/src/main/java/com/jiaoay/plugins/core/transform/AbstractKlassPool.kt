@@ -8,13 +8,17 @@ import java.net.URLClassLoader
  *
  * @author johnsonlee
  */
-abstract class AbstractKlassPool(private val classpath: Collection<File>, final override val parent: KlassPool? = null) : KlassPool {
+abstract class AbstractKlassPool(
+    private val classpath: Collection<File>,
+    final override val parent: KlassPool? = null,
+) : KlassPool {
 
     private val classes = mutableMapOf<String, Klass>()
 
     protected val imports = mutableMapOf<String, Collection<String>>()
 
-    override val classLoader: ClassLoader = URLClassLoader(classpath.map { it.toURI().toURL() }.toTypedArray(), parent?.classLoader)
+    override val classLoader: ClassLoader =
+        URLClassLoader(classpath.map { it.toURI().toURL() }.toTypedArray(), parent?.classLoader)
 
     override operator fun get(type: String) = normalize(type).let { name ->
         classes.getOrDefault(name, findClass(name))
@@ -29,9 +33,10 @@ abstract class AbstractKlassPool(private val classpath: Collection<File>, final 
 
     override fun toString() = "classpath: $classpath"
 
-    internal fun getImports(name: String): Collection<String> = this.imports[name] ?: this.parent?.let { it ->
-        if (it is AbstractKlassPool) it.getImports(name) else null
-    } ?: emptyList()
+    internal fun getImports(name: String): Collection<String> =
+        this.imports[name] ?: this.parent?.let { it ->
+            if (it is AbstractKlassPool) it.getImports(name) else null
+        } ?: emptyList()
 
     internal fun findClass(name: String): Klass {
         return try {
@@ -42,7 +47,6 @@ abstract class AbstractKlassPool(private val classpath: Collection<File>, final 
             DefaultKlass(name)
         }
     }
-
 }
 
 private class DefaultKlass(name: String) : Klass {
@@ -52,7 +56,6 @@ private class DefaultKlass(name: String) : Klass {
     override fun isAssignableFrom(type: String) = false
 
     override fun isAssignableFrom(klass: Klass) = klass.qualifiedName == this.qualifiedName
-
 }
 
 private class LoadedKlass(val pool: AbstractKlassPool, val clazz: Class<out Any>) : Klass {
@@ -61,8 +64,8 @@ private class LoadedKlass(val pool: AbstractKlassPool, val clazz: Class<out Any>
 
     override fun isAssignableFrom(type: String) = isAssignableFrom(pool.findClass(normalize(type)))
 
-    override fun isAssignableFrom(klass: Klass) = klass is LoadedKlass && clazz.isAssignableFrom(klass.clazz)
-
+    override fun isAssignableFrom(klass: Klass) =
+        klass is LoadedKlass && clazz.isAssignableFrom(klass.clazz)
 }
 
 private fun normalize(type: String) = if (type.contains('/')) {

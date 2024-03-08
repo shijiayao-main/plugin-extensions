@@ -1,8 +1,6 @@
 package com.jiaoay.plugins.demo
 
-import com.android.build.api.transform.TransformInvocation
-import com.didiglobal.booster.gradle.project
-import com.jiaoay.plugins.core.isQualifiedClass
+import com.jiaoay.plugins.core.annotation.isQualifiedClass
 import com.jiaoay.plugins.core.transform.TransformContext
 import com.jiaoay.plugins.core.transform.Transformer
 import com.jiaoay.plugins.demo.config.DemoConfig
@@ -13,7 +11,7 @@ import org.objectweb.asm.tree.ClassNode
 class DemoTransformer : Transformer {
 
     companion object {
-        private const val TAG = "SdkPatcherTransformer"
+        private const val TAG = "DemoTransformer"
     }
 
     private var config: DemoConfig? = null
@@ -29,19 +27,13 @@ class DemoTransformer : Transformer {
     }
 
     override fun transform(context: TransformContext, bytecode: ByteArray): ByteArray {
-        val sdkPatcherConfig: DemoConfig? = this.config ?: let {
-            if (context is TransformInvocation) {
-                val config = DemoConfig.get(context.project)
-                this.config = config
-                config
-            } else {
-                null
-            }
+        val sdkPatcherConfig: DemoConfig = this.config ?: let {
+            val config = DemoConfig.get(context.project)
+            this.config = config
+            config
         }
-        if (sdkPatcherConfig != null) {
-            if (sdkPatcherConfig.isEnable.not()) {
-                return bytecode
-            }
+        if (sdkPatcherConfig.isEnable.not()) {
+            return bytecode
         }
         val classReader = ClassReader(bytecode)
 
@@ -62,6 +54,6 @@ class DemoTransformer : Transformer {
     }
 
     private fun logger(message: String) {
-        com.jiaoay.plugins.core.logger("${config?.tag ?: TAG}: $message")
+        com.jiaoay.plugins.core.annotation.logger("${config?.tag ?: TAG}: $message")
     }
 }

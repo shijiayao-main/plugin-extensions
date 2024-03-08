@@ -26,5 +26,4 @@ interface ArtifactManager {
      * @param type The type of artifacts
      */
     fun get(type: String): Collection<File> = emptyList()
-
 }

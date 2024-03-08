@@ -8,7 +8,7 @@ import com.jiaoay.plugins.core.transform.Supervisor
  * @param action The action for observing
  */
 abstract class AbstractSupervisor<T>(
-    protected val action: (T) -> Unit
+    protected val action: (T) -> Unit,
 ) : Supervisor
 
 /**
@@ -18,7 +18,7 @@ abstract class AbstractSupervisor<T>(
  */
 open class ClassDescriptorSupervisor(
     private val prefix: String,
-    action: (String) -> Unit
+    action: (String) -> Unit,
 ) : AbstractSupervisor<String>(action) {
 
     override fun accept(name: String): Boolean {
@@ -28,7 +28,6 @@ open class ClassDescriptorSupervisor(
     override fun collect(name: String, data: () -> ByteArray) {
         action(name.substringBeforeLast(".class"))
     }
-
 }
 
 /**
@@ -36,7 +35,7 @@ open class ClassDescriptorSupervisor(
  */
 class ClassNameSupervisor(
     private val prefix: String,
-    action: (String) -> Unit
+    action: (String) -> Unit,
 ) : AbstractSupervisor<String>(action) {
 
     override fun accept(name: String): Boolean {
@@ -46,14 +45,13 @@ class ClassNameSupervisor(
     override fun collect(name: String, data: () -> ByteArray) {
         action(name.substringBeforeLast(".class").replace('/', '.'))
     }
-
 }
 
 /**
  * A supervisor for service (SPI) observing
  */
 class ServiceSupervisor(
-    action: (Pair<String, Collection<String>>) -> Unit
+    action: (Pair<String, Collection<String>>) -> Unit,
 ) : AbstractSupervisor<Pair<String, Collection<String>>>(action) {
 
     override fun accept(name: String): Boolean {
@@ -67,5 +65,4 @@ class ServiceSupervisor(
         }.toSet()
         action(`interface` to implementations)
     }
-
 }

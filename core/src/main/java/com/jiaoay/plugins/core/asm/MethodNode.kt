@@ -24,14 +24,18 @@ val MethodNode.isNative: Boolean
 val MethodNode.isStatic: Boolean
     get() = 0 != (access and Opcodes.ACC_STATIC)
 
-fun MethodNode.isInvisibleAnnotationPresent(vararg annotations: String) = isInvisibleAnnotationPresent(annotations.asIterable())
+fun MethodNode.isInvisibleAnnotationPresent(vararg annotations: String) =
+    isInvisibleAnnotationPresent(annotations.asIterable())
 
-fun MethodNode.isInvisibleAnnotationPresent(annotations: Iterable<String>) = this.invisibleAnnotations?.map {
-    it.desc
-}?.any(annotations::contains) ?: false
+fun MethodNode.isInvisibleAnnotationPresent(annotations: Iterable<String>) =
+    this.invisibleAnnotations?.map {
+        it.desc
+    }?.any(annotations::contains) ?: false
 
-fun MethodNode.isVisibleAnnotationPresent(vararg annotations: String) = isVisibleAnnotationPresent(annotations.asIterable())
+fun MethodNode.isVisibleAnnotationPresent(vararg annotations: String) =
+    isVisibleAnnotationPresent(annotations.asIterable())
 
-fun MethodNode.isVisibleAnnotationPresent(annotations: Iterable<String>) = this.visibleAnnotations?.map {
-    it.desc
-}?.any(annotations::contains) ?: false
+fun MethodNode.isVisibleAnnotationPresent(annotations: Iterable<String>) =
+    this.visibleAnnotations?.map {
+        it.desc
+    }?.any(annotations::contains) ?: false

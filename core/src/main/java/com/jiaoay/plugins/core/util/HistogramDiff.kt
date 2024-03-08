@@ -1,11 +1,11 @@
 package com.jiaoay.plugins.core.util
 
-import java.io.ByteArrayOutputStream
 import org.eclipse.jgit.diff.DiffAlgorithm
 import org.eclipse.jgit.diff.DiffFormatter
 import org.eclipse.jgit.diff.HistogramDiff
 import org.eclipse.jgit.diff.RawText
 import org.eclipse.jgit.diff.RawTextComparator
+import java.io.ByteArrayOutputStream
 
 infix fun String.diff(other: String): String {
     val a = RawText(this.toByteArray())

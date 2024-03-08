@@ -23,4 +23,4 @@ rootProject.name = "plugin-extensions"
 include(":core")
 include(":plugin-demo")
 include(":core-extensions")
-enableFeaturePreview("VERSION_CATALOGS")
+include(":plugin-trace")

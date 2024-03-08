@@ -10,5 +10,4 @@ interface TransformListener {
     fun onPreTransform(context: TransformContext) {}
 
     fun onPostTransform(context: TransformContext) {}
-
 }

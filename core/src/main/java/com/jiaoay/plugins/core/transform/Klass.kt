@@ -25,5 +25,4 @@ interface Klass {
      * @param klass the [Klass] object to be checked
      */
     fun isAssignableFrom(klass: Klass): Boolean
-
 }

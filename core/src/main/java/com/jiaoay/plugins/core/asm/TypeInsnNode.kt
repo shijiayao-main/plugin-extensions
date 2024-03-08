@@ -12,7 +12,13 @@ import org.objectweb.asm.tree.TypeInsnNode
  *
  * @author johnsonlee
  */
-fun TypeInsnNode.transform(klass: ClassNode, method: MethodNode, instantializer: TypeInsnNode, type: String, prefix: String = "") {
+fun TypeInsnNode.transform(
+    klass: ClassNode,
+    method: MethodNode,
+    instantializer: TypeInsnNode,
+    type: String,
+    prefix: String = "",
+) {
     var next: AbstractInsnNode? = this.next
 
     loop@ while (null != next) {
@@ -25,8 +31,10 @@ fun TypeInsnNode.transform(klass: ClassNode, method: MethodNode, instantializer:
         if (this.desc == invoke.owner && "<init>" == invoke.name) {
             // replace NEW with INVOKESTATIC
             invoke.owner = type
-            invoke.name = "new$prefix${instantializer.desc.substring(instantializer.desc.lastIndexOf('/') + 1)}"
-            invoke.desc = "${invoke.desc.substring(0, invoke.desc.lastIndexOf(')'))})L${instantializer.desc};"
+            invoke.name =
+                "new$prefix${instantializer.desc.substring(instantializer.desc.lastIndexOf('/') + 1)}"
+            invoke.desc =
+                "${invoke.desc.substring(0, invoke.desc.lastIndexOf(')'))})L${instantializer.desc};"
             invoke.opcode = Opcodes.INVOKESTATIC
             invoke.itf = false
 

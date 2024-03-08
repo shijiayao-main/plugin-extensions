@@ -22,5 +22,4 @@ class CompositeCollector(private val collectors: Iterable<Collector<*>>) : Colle
             it.collect(name, data)
         }
     }
-
 }

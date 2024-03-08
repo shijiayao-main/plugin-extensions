@@ -17,5 +17,4 @@ interface Transformer : TransformListener {
      * @return the transformed bytecode
      */
     fun transform(context: TransformContext, bytecode: ByteArray): ByteArray
-
 }

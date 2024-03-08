@@ -3,11 +3,11 @@ package com.jiaoay.plugins.core.util
 import com.didiglobal.booster.kotlinx.search
 import com.jiaoay.plugins.core.transform.AbstractTransformContext
 import com.jiaoay.plugins.core.transform.TransformContext
+import org.apache.commons.compress.archivers.ArchiveEntry
+import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import java.io.File
 import java.io.IOException
 import java.util.regex.Pattern
-import org.apache.commons.compress.archivers.ArchiveEntry
-import org.apache.commons.compress.archivers.ArchiveStreamFactory
 
 typealias Collector<T> = com.jiaoay.plugins.core.transform.Collector<T>
 
@@ -41,13 +41,16 @@ sealed class Collectors {
             return name matches REGEX_SPI
         }
 
-        override fun collect(name: String, data: () -> ByteArray): Pair<String, Collection<String>> {
-            return REGEX_SPI.matchEntire(name)!!.groupValues[1] to data().inputStream().bufferedReader().lineSequence().filterNot {
-                it.isBlank() || it.startsWith('#')
-            }.toSet()
+        override fun collect(
+            name: String,
+            data: () -> ByteArray,
+        ): Pair<String, Collection<String>> {
+            return REGEX_SPI.matchEntire(name)!!.groupValues[1] to data().inputStream()
+                .bufferedReader().lineSequence().filterNot {
+                    it.isBlank() || it.startsWith('#')
+                }.toSet()
         }
     }
-
 }
 
 class NameCollector(private val names: Set<String>) : Collector<String> {
@@ -59,7 +62,6 @@ class NameCollector(private val names: Set<String>) : Collector<String> {
     override fun accept(name: String) = name in names
 
     override fun collect(name: String, data: () -> ByteArray) = name
-
 }
 
 class RegexCollector(private val regex: Regex) : Collector<String> {
@@ -88,6 +90,7 @@ fun <R> File.collect(collector: Collector<R>): List<R> = when {
             collector.collect(base.relativize(f.toURI()).normalize().path, f::readBytes)
         }
     }
+
     this.isFile -> {
         this.inputStream().buffered().use {
             ArchiveStreamFactory().createArchiveInputStream(it).let { archive ->
@@ -105,6 +108,7 @@ fun <R> File.collect(collector: Collector<R>): List<R> = when {
             }
         }
     }
+
     else -> emptyList()
 }
 

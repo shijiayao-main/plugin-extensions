@@ -6,22 +6,14 @@ plugins {
 //    `kotlin-dsl`
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-
 dependencies {
     api(gradleApi())
     api(kotlin("stdlib"))
     api(libs.kotlinReflect)
-//    kapt(libs.googleAutoService)
+
     implementation(libs.googleAutoService)
-//    annotationProcessor(libs.googleAutoService)
 
     api(libs.boosterAndroidGradleApi)
-//    api(libs.boosterTransformSpi)
-//    api(libs.boosterTransformUtil)
 
     api(libs.boosterBuild)
     api("org.apache.commons:commons-compress:1.21")

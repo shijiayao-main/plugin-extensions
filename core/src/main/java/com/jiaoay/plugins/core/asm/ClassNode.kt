@@ -1,7 +1,5 @@
 package com.jiaoay.plugins.core.asm
 
-import java.io.PrintWriter
-import java.io.StringWriter
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.AnnotationNode
 import org.objectweb.asm.tree.ClassNode
@@ -11,6 +9,8 @@ import org.objectweb.asm.tree.MethodInsnNode
 import org.objectweb.asm.tree.MethodNode
 import org.objectweb.asm.tree.VarInsnNode
 import org.objectweb.asm.util.TraceClassVisitor
+import java.io.PrintWriter
+import java.io.StringWriter
 
 /**
  * The simple name of class
@@ -57,30 +57,38 @@ val ClassNode.defaultClinit: MethodNode
 val ClassNode.defaultInit: MethodNode
     get() = MethodNode(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null).apply {
         maxStack = 1
-        instructions.add(InsnList().apply {
-            add(VarInsnNode(Opcodes.ALOAD, 0))
-            add(MethodInsnNode(Opcodes.INVOKESPECIAL, superName, name, desc, false))
-            add(InsnNode(Opcodes.RETURN))
-        })
+        instructions.add(
+            InsnList().apply {
+                add(VarInsnNode(Opcodes.ALOAD, 0))
+                add(MethodInsnNode(Opcodes.INVOKESPECIAL, superName, name, desc, false))
+                add(InsnNode(Opcodes.RETURN))
+            },
+        )
     }
 
 val ClassNode.defaultOnCreate: MethodNode
     get() = MethodNode(Opcodes.ACC_PUBLIC, "onCreate", "()V", null, null).apply {
-        instructions.add(InsnList().apply {
-            add(VarInsnNode(Opcodes.ALOAD, 0))
-            add(MethodInsnNode(Opcodes.INVOKESPECIAL, superName, name, desc, false))
-            add(InsnNode(Opcodes.RETURN))
-        })
+        instructions.add(
+            InsnList().apply {
+                add(VarInsnNode(Opcodes.ALOAD, 0))
+                add(MethodInsnNode(Opcodes.INVOKESPECIAL, superName, name, desc, false))
+                add(InsnNode(Opcodes.RETURN))
+            },
+        )
         maxStack = 1
     }
 
-fun ClassNode.isInvisibleAnnotationPresent(annotations: Iterable<String>) = invisibleAnnotations?.map(AnnotationNode::desc)?.any(annotations::contains) ?: false
+fun ClassNode.isInvisibleAnnotationPresent(annotations: Iterable<String>) =
+    invisibleAnnotations?.map(AnnotationNode::desc)?.any(annotations::contains) ?: false
 
-fun ClassNode.isInvisibleAnnotationPresent(vararg annotations: String) = isInvisibleAnnotationPresent(annotations.asIterable())
+fun ClassNode.isInvisibleAnnotationPresent(vararg annotations: String) =
+    isInvisibleAnnotationPresent(annotations.asIterable())
 
-fun ClassNode.isVisibleAnnotationPresent(annotations: Iterable<String>) = visibleAnnotations?.map(AnnotationNode::desc)?.any(annotations::contains) ?: false
+fun ClassNode.isVisibleAnnotationPresent(annotations: Iterable<String>) =
+    visibleAnnotations?.map(AnnotationNode::desc)?.any(annotations::contains) ?: false
 
-fun ClassNode.isVisibleAnnotationPresent(vararg annotations: String) = isVisibleAnnotationPresent(annotations.asIterable())
+fun ClassNode.isVisibleAnnotationPresent(vararg annotations: String) =
+    isVisibleAnnotationPresent(annotations.asIterable())
 
 fun ClassNode.textify(): String = StringWriter().run {
     accept(TraceClassVisitor(PrintWriter(this)))

@@ -13,26 +13,34 @@ class ComponentHandler : DefaultHandler() {
     val providers = mutableSetOf<String>()
     val receivers = mutableSetOf<String>()
 
-    override fun startElement(uri: String, localName: String, qName: String, attributes: Attributes) {
+    override fun startElement(
+        uri: String,
+        localName: String,
+        qName: String,
+        attributes: Attributes,
+    ) {
         val name: String = attributes.getValue(ATTR_NAME) ?: return
 
         when (qName) {
             "application" -> {
                 applications.add(name)
             }
+
             "activity" -> {
                 activities.add(name)
             }
+
             "service" -> {
                 services.add(name)
             }
+
             "provider" -> {
                 providers.add(name)
             }
+
             "receiver" -> {
                 receivers.add(name)
             }
         }
     }
-
 }

@@ -1,15 +1,17 @@
 package com.jiaoay.plugins.core.transform
 
+import org.gradle.api.Project
 import java.io.File
 import java.util.concurrent.CopyOnWriteArrayList
 
 abstract class AbstractTransformContext(
+    final override val project: Project,
     final override val applicationId: String,
     final override val name: String,
     final override val bootClasspath: Collection<File>,
     final override val compileClasspath: Collection<File> = emptyList(),
     final override val runtimeClasspath: Collection<File> = emptyList(),
-    val bootKlassPool: KlassPool = makeKlassPool(bootClasspath)
+    val bootKlassPool: KlassPool = makeKlassPool(bootClasspath),
 ) : TransformContext {
 
     val collectors = CopyOnWriteArrayList<Collector<*>>()
@@ -48,7 +50,6 @@ abstract class AbstractTransformContext(
     override fun <R> unregisterCollector(collector: Collector<R>) {
         this.collectors -= collector
     }
-
 }
 
 private fun makeKlassPool(bootClasspath: Collection<File>): KlassPool {

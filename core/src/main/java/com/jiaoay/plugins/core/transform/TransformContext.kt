@@ -1,5 +1,6 @@
 package com.jiaoay.plugins.core.transform
 
+import org.gradle.api.Project
 import java.io.File
 
 /**
@@ -8,6 +9,8 @@ import java.io.File
  * @author johnsonlee
  */
 interface TransformContext {
+
+    val project: Project
 
     /**
      * The name of transform
@@ -101,5 +104,4 @@ interface TransformContext {
 
     fun <R> registerCollector(collector: Collector<R>)
     fun <R> unregisterCollector(collector: Collector<R>)
-
 }

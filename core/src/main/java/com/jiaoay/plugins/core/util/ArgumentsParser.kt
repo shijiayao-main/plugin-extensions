@@ -7,7 +7,11 @@ package com.jiaoay.plugins.core.util
  * @param offset the start index to parse
  * @param length the length from *offset* to parse
  */
-class ArgumentsParser(private val signature: String, private val offset: Int = 0, private val length: Int = signature.length) {
+class ArgumentsParser(
+    private val signature: String,
+    private val offset: Int = 0,
+    private val length: Int = signature.length,
+) {
 
     private val limit = offset + length
 
@@ -29,18 +33,30 @@ class ArgumentsParser(private val signature: String, private val offset: Int = 0
         val c = nextChar()
 
         return when (c) {
-            /* B */ 66 -> "byte"
-            /* C */ 67 -> "char"
-            /* D */ 68 -> "double"
-            /* F */ 70 -> "float"
-            /* I */ 73 -> "int"
-            /* J */ 74 -> "long"
-            /* L */ 76 -> parseQualifiedType()
-            /* S */ 83 -> "short"
-            /* V */ 86 -> "void"
-            /* Z */ 90 -> "boolean"
-            /* [ */ 91 -> parseArrayType()
-            /*EOF*/ -1 -> null
+            /* B */
+            66 -> "byte"
+            /* C */
+            67 -> "char"
+            /* D */
+            68 -> "double"
+            /* F */
+            70 -> "float"
+            /* I */
+            73 -> "int"
+            /* J */
+            74 -> "long"
+            /* L */
+            76 -> parseQualifiedType()
+            /* S */
+            83 -> "short"
+            /* V */
+            86 -> "void"
+            /* Z */
+            90 -> "boolean"
+            /* [ */
+            91 -> parseArrayType()
+            /*EOF*/
+            -1 -> null
             else -> throw IllegalArgumentException("unexpected char `${c.toChar()}` at $p")
         }
     }
@@ -55,9 +71,12 @@ class ArgumentsParser(private val signature: String, private val offset: Int = 0
             p = pos
             c = nextChar()
             when (c) {
-                /* ; */ 59 -> break@loop
-                /*EOF*/ -1 -> throw java.lang.IllegalArgumentException("unexpected char `$c` at $p")
-                /* / */ 47 -> buf.append('.')
+                /* ; */
+                59 -> break@loop
+                /*EOF*/
+                -1 -> throw java.lang.IllegalArgumentException("unexpected char `$c` at $p")
+                /* / */
+                47 -> buf.append('.')
                 else -> buf.append(c.toChar())
             }
         }
@@ -65,5 +84,4 @@ class ArgumentsParser(private val signature: String, private val offset: Int = 0
     }
 
     private fun nextChar() = if (pos < limit) signature[pos++].toInt() else -1
-
 }

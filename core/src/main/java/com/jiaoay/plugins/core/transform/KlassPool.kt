@@ -25,5 +25,4 @@ interface KlassPool : Closeable {
      * @param type the qualified name of class
      */
     operator fun get(type: String): Klass
-
 }
