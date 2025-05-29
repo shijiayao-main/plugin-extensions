@@ -11,11 +11,11 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 
-//    versionCatalogs {
-//        create("libs") {
-//            from(files("./gradle/libs.versions.toml"))
-//        }
-//    }
+    versionCatalogs {
+        create("libs") {
+            from(files("${rootDir}/gradle/plugin.libs.versions.toml"))
+        }
+    }
 }
 
 rootProject.name = "plugin-extensions"
