@@ -8,6 +8,6 @@ class TraceConfigImpl : PluginConfig {
     }
 
     override fun getConfigName(): String {
-        return TraceConfig.Name
+        return TraceConfig.NAME
     }
 }

@@ -5,10 +5,10 @@ import org.gradle.api.Project
 open class TraceConfig {
 
     companion object {
-        internal const val Name = "pluginTrace"
+        internal const val NAME = "pluginTrace"
 
         fun get(project: Project): TraceConfig {
-            val config = project.extensions.getByName(Name)
+            val config = project.extensions.getByName(NAME)
             if (config is TraceConfig) {
                 return config
             }

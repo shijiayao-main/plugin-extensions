@@ -6,6 +6,6 @@ class ExtensionsPluginConfigImpl : PluginConfig {
     }
 
     override fun getConfigName(): String {
-        return ExtensionsPluginConfig.Name
+        return ExtensionsPluginConfig.NAME
     }
 }

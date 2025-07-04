@@ -4,6 +4,6 @@ package com.jiaoay.plugins.trace
 @Target(
     AnnotationTarget.ANNOTATION_CLASS,
     AnnotationTarget.CLASS,
-    AnnotationTarget.FILE
+    AnnotationTarget.FILE,
 )
 annotation class Trace()

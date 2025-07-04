@@ -8,6 +8,6 @@ class DemoConfigImpl : PluginConfig {
     }
 
     override fun getConfigName(): String {
-        return DemoConfig.Name
+        return DemoConfig.NAME
     }
 }

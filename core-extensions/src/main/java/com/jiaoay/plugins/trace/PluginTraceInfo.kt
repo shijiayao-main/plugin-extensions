@@ -36,7 +36,7 @@ class PluginTraceInfo(
         if (isStatic == 1) {
             stringBuilder
                 .append(
-                    "static: "
+                    "static: ",
                 )
         }
 
@@ -48,7 +48,7 @@ class PluginTraceInfo(
                     "($classSource:$lineNumber) $methodName"
                 } else {
                     "($classSource) $methodName"
-                }
+                },
             )
             .append(
                 "(${parseArguments(arguments)})->",

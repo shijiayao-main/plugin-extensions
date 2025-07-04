@@ -35,13 +35,13 @@ val Int.isQualified: Boolean
     get() {
         val access = this
         return (
-                access.and(Opcodes.ACC_INTERFACE) != 0 ||
-                        access.and(Opcodes.ACC_ABSTRACT) != 0 ||
-                        access.and(Opcodes.ACC_ENUM) != 0 ||
-                        access.and(Opcodes.ACC_ANNOTATION) != 0 ||
-                        access.and(Opcodes.ACC_MODULE) != 0 ||
-                        access.and(Opcodes.ACC_SYNTHETIC) != 0
-                ).not()
+            access.and(Opcodes.ACC_INTERFACE) != 0 ||
+                access.and(Opcodes.ACC_ABSTRACT) != 0 ||
+                access.and(Opcodes.ACC_ENUM) != 0 ||
+                access.and(Opcodes.ACC_ANNOTATION) != 0 ||
+                access.and(Opcodes.ACC_MODULE) != 0 ||
+                access.and(Opcodes.ACC_SYNTHETIC) != 0
+            ).not()
     }
 
 /**

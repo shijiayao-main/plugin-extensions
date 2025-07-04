@@ -56,13 +56,13 @@ class TraceClassVisitor(
             name,
             descriptor,
             signature,
-            exceptions
+            exceptions,
         ) ?: return super.visitMethod(
             access,
             name,
             descriptor,
             signature,
-            exceptions
+            exceptions,
         )
 
         if (access.isQualified.not()) {

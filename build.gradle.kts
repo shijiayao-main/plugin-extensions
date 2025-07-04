@@ -30,18 +30,22 @@ subprojects {
         configure<SpotlessExtension>() {
             kotlin {
                 target("**/*.kt")
-                ktlint("0.50.0")
+                ktlint("1.6.0").editorConfigOverride(
+                    mapOf(
+                        "android" to "true",
+                    ),
+                )
             }
             java {
                 target("**/*.java")
                 googleJavaFormat()
-                indentWithSpaces(2)
+                leadingTabsToSpaces(2)
                 trimTrailingWhitespace()
                 removeUnusedImports()
             }
             kotlinGradle {
                 target("*.gradle.kts")
-                ktlint("0.50.0")
+                ktlint("1.6.0")
             }
         }
     }
