@@ -5,6 +5,7 @@ import com.jiaoay.plugins.core.transform.AbstractTransformContext
 import com.jiaoay.plugins.core.transform.TransformContext
 import org.apache.commons.compress.archivers.ArchiveEntry
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream
 import java.io.File
 import java.io.IOException
 import java.util.regex.Pattern
@@ -93,7 +94,7 @@ fun <R> File.collect(collector: Collector<R>): List<R> = when {
 
     this.isFile -> {
         this.inputStream().buffered().use {
-            ArchiveStreamFactory().createArchiveInputStream(it).let { archive ->
+            ArchiveStreamFactory().createArchiveInputStream<ZipArchiveInputStream>(it).let { archive ->
                 generateSequence {
                     try {
                         archive.nextEntry

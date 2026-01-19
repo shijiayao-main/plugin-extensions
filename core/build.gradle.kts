@@ -9,23 +9,23 @@ plugins {
 dependencies {
     api(gradleApi())
     api(kotlin("stdlib"))
-    api(libs.kotlinReflect)
+    api(pluginLibs.kotlinReflect)
 
-    implementation(libs.googleAutoService)
+    implementation(pluginLibs.googleAutoService)
 
-    api(libs.boosterAndroidGradleApi)
+    api(pluginLibs.boosterAndroidGradleApi)
 
-    api(libs.boosterBuild)
-    api("org.apache.commons:commons-compress:1.21")
+    api(pluginLibs.boosterBuild)
+    api(pluginLibs.apacheCommonsCompress)
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.10.0.202012080955-r")
 
-    api(libs.asm)
-    api(libs.asmAnalysis)
-    api(libs.asmCommons)
-    api(libs.asmTree)
-    api(libs.asmUtil)
-//    compileOnly("com.android.tools.build:gradle:4.0.0")
-    compileOnly(libs.androidBuildTools)
+    api(pluginLibs.asm)
+    api(pluginLibs.asmAnalysis)
+    api(pluginLibs.asmCommons)
+    api(pluginLibs.asmTree)
+    api(pluginLibs.asmUtil)
+
+    compileOnly(pluginLibs.androidBuildTools)
 
     api(project(":core-extensions"))
 }

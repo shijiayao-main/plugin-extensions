@@ -9,6 +9,7 @@ gradlePluginVersion = "9.0.0"
 asmVersion = "9.9.1"
 autoServiceVersion = "1.1.1"
 spotlessVersion = "8.1.0"
+apacheVersion = "1.28.0"
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
@@ -38,3 +39,5 @@ asmAnalysis = { module = "org.ow2.asm:asm-analysis", version.ref = "asmVersion" 
 asmCommons = { module = "org.ow2.asm:asm-commons", version.ref = "asmVersion" }
 asmTree = { module = "org.ow2.asm:asm-tree", version.ref = "asmVersion" }
 asmUtil = { module = "org.ow2.asm:asm-util", version.ref = "asmVersion" }
+
+apacheCommonsCompress = {module = "org.apache.commons:commons-compress", version.ref = "apacheVersion"}

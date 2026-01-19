@@ -8,5 +8,5 @@ plugins {
 dependencies {
     compileOnly(project(":core"))
 
-    compileOnly(libs.androidBuildTools)
+    compileOnly(pluginLibs.androidBuildTools)
 }

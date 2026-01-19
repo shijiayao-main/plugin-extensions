@@ -2,14 +2,14 @@ import com.diffplug.gradle.spotless.SpotlessExtension
 
 buildscript {
     dependencies {
-        classpath(libs.kotlinGradlePlugin)
-        classpath(kotlin("gradle-plugin", version = libs.versions.kotlin.get()))
+        classpath(pluginLibs.kotlinGradlePlugin)
+        classpath(kotlin("gradle-plugin", version = pluginLibs.versions.kotlin.get()))
     }
 }
 
 plugins {
-    alias(libs.plugins.kotlin) apply false
-    alias(libs.plugins.spotless).apply(false)
+    alias(pluginLibs.plugins.kotlin) apply false
+    alias(pluginLibs.plugins.spotless).apply(false)
 }
 
 tasks.register("clean", Delete::class.java) {
@@ -19,7 +19,7 @@ tasks.register("clean", Delete::class.java) {
 
 subprojects {
     project.afterEvaluate {
-        apply(plugin = rootProject.libs.plugins.spotless.get().pluginId)
+        apply(plugin = rootProject.pluginLibs.plugins.spotless.get().pluginId)
 
         if (project.file("build.gradle").exists().not() && project.file("build.gradle.kts").exists()
                 .not()
