@@ -1,14 +1,14 @@
 [versions]
 detekt = "1.23.8"
-kotlin = "2.2.20"
-ktlintGradle = "13.1.0"
+kotlin = "2.3.0"
+ktlintGradle = "14.0.1"
 pluginPublish = "2.0.0"
 versionCheck = "0.53.0"
 boosterVersion = "5.1.0"
-gradlePluginVersion = "8.13.0"
-asmVersion = "9.9"
+gradlePluginVersion = "9.0.0"
+asmVersion = "9.9.1"
 autoServiceVersion = "1.1.1"
-spotlessVersion = "8.0.0"
+spotlessVersion = "8.1.0"
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
