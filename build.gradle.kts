@@ -2,7 +2,6 @@ import com.diffplug.gradle.spotless.SpotlessExtension
 
 buildscript {
     dependencies {
-        classpath(pluginLibs.kotlinGradlePlugin)
         classpath(kotlin("gradle-plugin", version = pluginLibs.versions.kotlin.get()))
     }
 }
@@ -15,7 +14,6 @@ plugins {
 tasks.register("clean", Delete::class.java) {
     delete(rootProject.buildDir)
 }
-
 
 subprojects {
     project.afterEvaluate {

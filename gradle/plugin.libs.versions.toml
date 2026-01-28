@@ -18,7 +18,6 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 pluginPublish = { id = "com.gradle.plugin-publish", version.ref = "pluginPublish" }
 versionCheck = { id = "com.github.ben-manes.versions", version.ref = "versionCheck" }
 # android
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotlessVersion" }
 
 [libraries]
@@ -27,7 +26,6 @@ junit = "junit:junit:4.13.2"
 boosterAndroidGradleApi = { module = "com.didiglobal.booster:booster-android-gradle-api", version.ref = "boosterVersion" }
 boosterBuild = { module = "com.didiglobal.booster:booster-build", version.ref = "boosterVersion" }
 # kotlin
-kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 # android

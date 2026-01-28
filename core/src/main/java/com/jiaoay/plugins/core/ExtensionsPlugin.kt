@@ -14,6 +14,7 @@ import com.jiaoay.plugins.core.spi.VariantProcessor
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.util.GradleVersion
 
 class ExtensionsPlugin : Plugin<Project> {
 
@@ -34,6 +35,10 @@ class ExtensionsPlugin : Plugin<Project> {
     private fun setupTasks(project: Project) {
         val processors = loadVariantProcessors(project)
         project.setup(processors)
+
+        if (GradleVersion.current().majorVersion >= 9) {
+            return
+        }
 
         if (project.state.executed) {
             project.legacySetup(processors)
