@@ -54,4 +54,8 @@ class SdkPatcherAnnotation : PluginAnnotation {
             config?.replaceClassMap = replaceClassMap
         }
     }
+
+    override fun fileCheckEnd() {
+        // 文件检查完成, 当前时机可以用于检查
+    }
 }

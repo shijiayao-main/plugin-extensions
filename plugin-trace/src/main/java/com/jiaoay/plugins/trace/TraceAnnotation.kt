@@ -16,6 +16,10 @@ class TraceAnnotation : PluginAnnotation {
         Type.getType(Trace::class.java)
     }
 
+    private val traceNotAnnotationType: Type by lazy {
+        Type.getType(TraceNot::class.java)
+    }
+
     override fun onPreAnnotationCheck(project: Project) {
         if (config == null) {
             config = TraceConfig.get(project = project)
@@ -28,16 +32,36 @@ class TraceAnnotation : PluginAnnotation {
         annotationNode: AnnotationNode,
     ) {
         val annotationNodeDesc = annotationNode.desc
-        if (annotationNodeDesc != traceAnnotationType.descriptor) {
-            return
-        }
+        when(annotationNodeDesc) {
+            traceAnnotationType.descriptor -> {
+                logger("TraceAnnotation: handleFile: white className: $className")
+                val whiteSet = config?.traceWhiteSet
+                if (whiteSet == null) {
+                    config?.traceWhiteSet = mutableSetOf(className)
+                } else {
+                    whiteSet.add(className)
+                }
+            }
 
-        logger("TraceAnnotation: handleFile: className: $className")
-        val classSet = config?.traceClassSet
-        if (classSet == null) {
-            config?.traceClassSet = mutableSetOf(className)
-        } else {
-            classSet.add(className)
+            traceNotAnnotationType.descriptor -> {
+                logger("TraceAnnotation: handleFile: black className: $className")
+                val blackSet = config?.traceBlackSet
+                if (blackSet == null) {
+                    config?.traceBlackSet = mutableSetOf(className)
+                } else {
+                    blackSet.add(className)
+                }
+            }
+        }
+    }
+
+    override fun fileCheckEnd() {
+        logger("fileCheckEnd: ")
+        config?.traceWhiteSet?.forEach {
+            logger("white: $it")
+        }
+        config?.traceBlackSet?.forEach {
+            logger("black: $it")
         }
     }
 }

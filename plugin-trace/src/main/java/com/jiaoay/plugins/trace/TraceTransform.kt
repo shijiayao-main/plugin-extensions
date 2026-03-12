@@ -1,6 +1,5 @@
 package com.jiaoay.plugins.trace
 
-import com.android.SdkConstants
 import com.jiaoay.plugins.core.annotation.isQualifiedClass
 import com.jiaoay.plugins.core.annotation.logger
 import com.jiaoay.plugins.core.transform.TransformContext
@@ -38,24 +37,17 @@ class TraceTransform : Transformer {
             config
         }
 
-        val traceClassSet = traceConfig.traceClassSet ?: return bytecode
-
-        if (traceClassSet.isEmpty()) {
-            return bytecode
-        }
-
         if (traceConfig.isEnable.not()) {
             return bytecode
         }
 
-        val classReader = ClassReader(bytecode)
+        val classReader = checkTraceAndGetClassReader(
+            whiteSet = traceConfig.traceWhiteSet,
+            blackSet = traceConfig.traceBlackSet,
+            bytecode = bytecode,
+        )
 
-        if (classReader.isQualifiedClass.not()) {
-            return bytecode
-        }
-
-        val clazzName: String = classReader.className.plus(SdkConstants.DOT_CLASS) ?: ""
-        if (traceClassSet.contains(clazzName).not()) {
+        if (classReader == null) {
             return bytecode
         }
 
@@ -69,5 +61,47 @@ class TraceTransform : Transformer {
                 )
             }
             .toByteArray()
+    }
+
+    private fun checkTraceAndGetClassReader(
+        whiteSet: Set<String>?,
+        blackSet: Set<String>?,
+        bytecode: ByteArray,
+    ): ClassReader? {
+        if (whiteSet.isNullOrEmpty()) {
+            return null
+        }
+
+        val classReader = ClassReader(bytecode)
+
+        if (classReader.isQualifiedClass.not()) {
+            return null
+        }
+
+        val clazzName: String = classReader.className.replace('/', '.')
+
+        if (whiteSet.checkIsMatch(clazzName).not()) {
+            return null
+        }
+
+        if (blackSet.checkIsMatch(clazzName)) {
+            return null
+        }
+
+        return classReader
+    }
+
+    private fun Set<String>?.checkIsMatch(str: String): Boolean {
+        if (this.isNullOrEmpty()) {
+            return false
+        }
+
+        forEach {
+            if (str.contains(it)) {
+                return true
+            }
+        }
+
+        return false
     }
 }

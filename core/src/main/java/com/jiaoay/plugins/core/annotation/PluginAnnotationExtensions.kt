@@ -66,6 +66,10 @@ internal fun autoSearchAnnotation(
             annotations = annotations,
         )
     }
+
+    annotations.forEach {
+        it.fileCheckEnd()
+    }
 }
 
 private fun handleFile(
@@ -95,7 +99,7 @@ private fun handleFile(
                     }
                     val classNode = ClassNode()
                     classReader.accept(classNode, 0)
-                    val className = classNode.name.plus(SdkConstants.DOT_CLASS)
+                    val className = classNode.name
 
                     classNode.invisibleAnnotations?.forEach { annotationNode ->
                         if (annotationNode == null) {

@@ -10,6 +10,7 @@ class PluginTraceInfo(
 
     private var begin: Long = 0L
     private var end: Long = 0L
+    private var cost: Long = 0L
     private var result: Any? = null
     private var lineNumber: Int = 0
     private var arguments: Array<Any?>? = null
@@ -31,6 +32,19 @@ class PluginTraceInfo(
         PluginExtensions.outputTrace(this)
     }
 
+    fun getCostTime(): Long {
+        if (cost != 0L) {
+            return cost
+        }
+
+        if (end <= 0) {
+            return 0L
+        }
+
+        cost = end - begin
+        return cost
+    }
+
     override fun toString(): String {
         val stringBuilder = StringBuilder()
         if (isStatic == 1) {
@@ -41,8 +55,8 @@ class PluginTraceInfo(
         }
 
         stringBuilder
-            .append(Thread.currentThread().name)
-            .append(" ")
+            .append(Thread.currentThread().name.orEmpty())
+            .append(" | ")
             .append(
                 if (lineNumber > 0) {
                     "($classSource:$lineNumber) $methodName"
@@ -56,7 +70,7 @@ class PluginTraceInfo(
             .append(
                 "[${parseResult(result)}]",
             )
-            .append(" ${end - begin}ms")
+            .append(" ${getCostTime()}ms")
         return stringBuilder.toString()
     }
 

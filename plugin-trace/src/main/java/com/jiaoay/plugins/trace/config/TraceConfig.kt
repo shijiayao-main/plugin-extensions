@@ -18,5 +18,13 @@ open class TraceConfig {
 
     var isEnable: Boolean = false
 
-    var traceClassSet: MutableSet<String>? = null
+    /**
+     * 耗时统计白名单, 报名中包含对应内容的类会被插桩
+     */
+    var traceWhiteSet: MutableSet<String>? = null
+
+    /**
+     * 耗时统计黑名单, 报名中包含对应内容的类会被过滤
+     */
+    var traceBlackSet: MutableSet<String>? = null
 }

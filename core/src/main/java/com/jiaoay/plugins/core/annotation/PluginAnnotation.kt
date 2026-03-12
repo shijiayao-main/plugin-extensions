@@ -13,4 +13,6 @@ interface PluginAnnotation {
         classNode: ClassNode,
         annotationNode: AnnotationNode,
     )
+
+    fun fileCheckEnd()
 }
